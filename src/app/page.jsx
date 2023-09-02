@@ -4,21 +4,25 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
 const Page = () => {
+  useEffect(() => {
+    const getLocalData = () => {
+      const list = localStorage.getItem("mytodolist");
 
-  const getLocalData = () => {
-    const list = localStorage.getItem("mytodolist");
+      if (list) {
+        return JSON.parse(list);
+      }
 
-    if (list) {
-      return JSON.parse(list);
+      else {
+        return [];
+      }
     }
+    setItems(getLocalData())
+    return getLocalData()
+  }, [])
 
-    else {
-      return [];
-    }
-  }
 
   const [inputData, setInputData] = useState("");
-  const [items, setItems] = useState(getLocalData());
+  const [items, setItems] = useState([]);
   const [isEditItem, setIsEditItem] = useState("");
   const [toggleButton, setToggleButton] = useState(false);
 
